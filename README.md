@@ -38,6 +38,13 @@ default-http-backend   ClusterIP   10.100.200.140   <none>        80/TCP        
 ingress-nginx          NodePort    10.100.200.28    <none>        80:30314/TCP,443:32524/TCP   3h
 ```
 
+```
+kubectl get pods -n ingress-nginx
+NAME                                        READY     STATUS    RESTARTS   AGE
+default-http-backend-55c6c69b88-jwwlv       1/1       Running   0          3h
+nginx-ingress-controller-6844dff6b7-9zzft   1/1       Running   0          3h
+```
+
 Point the Load Balancer to all the worker nodes IP:NodePort (30314 and 32524)
 
 ### Deploy Multiple Apps behind same load balancer
