@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: music-ingress
+  namespace: music1
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: music1.test-pks.shaozhenpcf.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: music-service
+          servicePort: 8080
