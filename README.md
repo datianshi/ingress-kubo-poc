@@ -1,22 +1,27 @@
 # ingress-nginx-kubo-poc
 
-## Problems
+## Problems/Challenges
 
-Assume there is no Kubernetes Cloud Provider Load Balancer service available
+Assume there is no Kubernetes Cloud Provider Load Balancers available
 
-* Have to use node port service to expose a port on worker node
+* Have to use node port service to gain ingress traffic
 * Have to manually configure an external load balancer for ingress traffic
 
-## Solution with ingress-niginx
+## Solutions with ingress-niginx
 
 ![IDEA](images/PKS-Ingress-Nginx.png)
-[service networking ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
-[ingress nginx](https://github.com/kubernetes/ingress-nginx)
+[service networking
+
+
+References:
+
+* [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
+* [Kubernetes ingress nginx](https://github.com/kubernetes/ingress-nginx)
 
 ## Infrastructure Prerequisites
 
 * A Load Balancer front end port 80
-* A wild card DNS point to the load Balancer
+* A wild card DNS record point to the load Balancer
 
 ## Deploy Samples
 
@@ -35,7 +40,7 @@ ingress-nginx          NodePort    10.100.200.28    <none>        80:30314/TCP,4
 
 Point the Load Balancer to all the worker nodes IP:NodePort (30314 and 32524)
 
-### Deploy Many Apps
+### Deploy Multiple Apps behind same load balancer
 
 ```
 kubectl create -f music1/namespace.yml
@@ -48,15 +53,22 @@ NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
 music-service   ClusterIP   10.100.200.63   <none>        8080/TCP   2h
 ```
 
-Provide the ingress rule based on host header
-[ingress.yml](images/ingress.yml)
+Provide the ingress rule based on the host header
+[ingress.yml](music1/ingress.yml)
 ```
 kubectl create -f music1/ingress.yml
 ```
 
-Create another apps
+Create another app
 ```
 kubectl create -f music2/namespace.yml
 kubectl create -f music2/music.yml
 kubectl create -f music2/ingress.yml
+```
+
+### Access Spring Music
+
+```
+* http://music1.test-pks.shaozhenpcf.com
+* http://music2.test-pks.shaozhenpcf.com
 ```
