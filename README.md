@@ -10,10 +10,10 @@ Assume there is no Kubernetes Cloud Provider Load Balancers available
 ## Solutions with ingress-niginx
 
 ![IDEA](images/PKS-Ingress-Nginx.png)
-[service networking
 
 
-References:
+
+Service Networking References:
 
 * [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 * [Kubernetes ingress nginx](https://github.com/kubernetes/ingress-nginx)
@@ -69,6 +69,6 @@ kubectl create -f music2/ingress.yml
 ### Access Spring Music
 
 ```
-* http://music1.test-pks.shaozhenpcf.com
-* http://music2.test-pks.shaozhenpcf.com
+http://music1.test-pks.shaozhenpcf.com
+http://music2.test-pks.shaozhenpcf.com
 ```
