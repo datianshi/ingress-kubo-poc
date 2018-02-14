@@ -22,6 +22,7 @@ Service Networking References:
 
 * A Load Balancer front end port 80
 * A wild card DNS record point to the load Balancer
+* Using either [nginx](https://github.com/kubernetes/ingress-nginx) or [istio](https://istio.io/docs/tasks/traffic-management/ingress.html)
 
 ## Deploy Samples
 
@@ -30,6 +31,15 @@ Service Networking References:
 ```
 ./install-ingress-nginx.sh
 ```
+### Install ingress-istio
+
+```
+curl -L https://git.io/getLatestIstio | sh -
+```
+
+### Setup Load Balancer to worker node
+
+#### nginx
 
 ```
 kubectl get services -n ingress-nginx
@@ -47,6 +57,16 @@ nginx-ingress-controller-6844dff6b7-9zzft   1/1       Running   0          3h
 
 Point the Load Balancer to all the worker nodes IP:NodePort (30314 and 32524)
 
+#### istio
+
+```
+kubectl get service istio-ingress -n istio-system
+NAME            TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)                      AGE
+istio-ingress   LoadBalancer   10.100.200.56   <pending>     80:31385/TCP,443:30138/TCP   2m
+```
+
+Point the Load Balancer to all the worker nodes IP:NodePort (31385 and 30138)
+
 ### Deploy Multiple Apps behind same load balancer
 
 ```
@@ -61,16 +81,22 @@ music-service   ClusterIP   10.100.200.63   <none>        8080/TCP   2h
 ```
 
 Provide the ingress rule based on the host header
-[ingress.yml](music1/ingress.yml)
+
+[ingress-nginx.yml](music1/ingress-nginx.yml)
 ```
-kubectl create -f music1/ingress.yml
+kubectl create -f music1/ingress-nginx.yml
+```
+
+__OR__
+
+[ingress-istio.yml](music1/ingress-istio.yml)
+```
+kubectl create -f music1/ingress-istio.yml
 ```
 
 Create another app
 ```
-kubectl create -f music2/namespace.yml
-kubectl create -f music2/music.yml
-kubectl create -f music2/ingress.yml
+./install-music.sh music2 istio/nginx
 ```
 
 ### Access Spring Music
