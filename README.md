@@ -17,7 +17,7 @@ Service Networking References:
 
 * [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 * [Kubernetes ingress nginx](https://github.com/kubernetes/ingress-nginx)
-* [Kubernetes istio nginx](https://istio.io/docs/tasks/traffic-management/ingress.html)
+* [Kubernetes ingress istio](https://istio.io/docs/tasks/traffic-management/ingress.html)
 
 ## Infrastructure Prerequisites
 
