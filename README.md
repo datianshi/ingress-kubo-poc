@@ -1,4 +1,4 @@
-# ingress-nginx-kubo-poc
+# ingress-kubo-poc
 
 ## Problems/Challenges
 
@@ -7,7 +7,7 @@ Assume there is no Kubernetes Cloud Provider Load Balancers available
 * Have to use node port service to gain ingress traffic
 * Have to manually configure an external load balancer for ingress traffic
 
-## Solutions with ingress-niginx
+## Solutions with ingress
 
 ![IDEA](images/PKS-Ingress-Nginx.png)
 
@@ -17,12 +17,12 @@ Service Networking References:
 
 * [Kubernetes ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/)
 * [Kubernetes ingress nginx](https://github.com/kubernetes/ingress-nginx)
+* [Kubernetes ingress nginx](https://istio.io/docs/tasks/traffic-management/ingress.html)
 
 ## Infrastructure Prerequisites
 
 * A Load Balancer front end port 80
 * A wild card DNS record point to the load Balancer
-* Using either [nginx](https://github.com/kubernetes/ingress-nginx) or [istio](https://istio.io/docs/tasks/traffic-management/ingress.html)
 
 ## Deploy Samples
 
@@ -35,6 +35,7 @@ Service Networking References:
 
 ```
 curl -L https://git.io/getLatestIstio | sh -
+kubectl apply -f install/kubernetes/istio.yaml
 ```
 
 ### Setup Load Balancer to worker node
@@ -67,7 +68,7 @@ istio-ingress   LoadBalancer   10.100.200.56   <pending>     80:31385/TCP,443:30
 
 Point the Load Balancer to all the worker nodes IP:NodePort (31385 and 30138)
 
-### Deploy Multiple Apps behind same load balancer
+### Deploy multiple apps behind same load balancer
 
 ```
 kubectl create -f music1/namespace.yml
