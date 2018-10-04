@@ -3,18 +3,13 @@ kind: Ingress
 metadata:
   name: music-ingress
   namespace: music1
-  annotations:
-    kubernetes.io/ingress.class: nsx
+  annotations: {}
 spec:
-  tls:
-  - hosts:
-    - music1.nsx-t.shaozhenpcf.com
-    secretName: music1-secret
   rules:
-  - host: music1.nsx-t.shaozhenpcf.com
+  - host: music1.aws.shaozhenpcf.com
     http:
       paths:
-      - path: /*
+      - path: /
         backend:
           serviceName: music-service
           servicePort: 8080

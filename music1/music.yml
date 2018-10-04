@@ -22,7 +22,7 @@ metadata:
   name: frontend
   namespace: music1
 spec:
-  replicas: 1
+  replicas: 3
   template:
     metadata:
       labels:
