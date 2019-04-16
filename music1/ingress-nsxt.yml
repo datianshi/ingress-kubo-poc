@@ -3,15 +3,14 @@ kind: Ingress
 metadata:
   name: music-ingress
   namespace: music1
-  annotations:
-    kubernetes.io/ingress.class: nsx
+  annotations: {}
 spec:
   tls:
   - hosts:
-    - music1.nsx-t.shaozhenpcf.com
-    secretName: music1-secret
+    - music.pks.hulk.pvd.pez.pivotal.io
+    secretName: test-secret
   rules:
-  - host: music1.nsx-t.shaozhenpcf.com
+  - host: music.pks.hulk.pvd.pez.pivotal.io
     http:
       paths:
       - path: /*
